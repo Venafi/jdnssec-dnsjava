@@ -6,7 +6,7 @@
     <property name="tests_dir" value="${basedir}/tests"/>
     <property name="tests_build_dir" value="${basedir}/build/tests"/>
     <property name="reports_dir" value="${basedir}/reports"/>
-    <property name="version" value="2.1.5-vrsn-1"/>
+    <property name="version" value="2.1.6-vrsn-1"/>
     <property name="jarname" value="dnsjava-${version}.jar"/>
     <property name="zipname" value="dnsjava-${version}.zip"/>
     <property name="targzname" value="dnsjava-${version}.tar.gz"/>
@@ -24,14 +24,14 @@
 
     <target name="compile" description="Compile everything"
             depends="prepare-src">
-        <javac destdir="${build_dir}" debug="true" target="1.4" source="1.4">
+        <javac destdir="${build_dir}" debug="true" target="1.7" source="1.7">
             <src path="${src_dir}"/>
             <exclude name="tests/**"/>
 	</javac>
     </target>
 
     <target name="spi" description="Compile the Name Service Provider code">
-        <javac destdir="${build_dir}" debug="true" target="1.4" source="1.4">
+        <javac destdir="${build_dir}" debug="true" target="1.7" source="1.7">
             <src path="${src_dir}"/>
             <include name="org/xbill/DNS/spi/*.java"/>
 	</javac>
@@ -63,7 +63,7 @@
             Bundle-SymbolicName: org.xbill.dns
             Export-Package: org.xbill.DNS;version=${version},org.xbill.DNS.spi;version=${version},org.xbill.DNS.utils;version=${version},org.xbill.DNS.windows;version=${version}
             Bundle-Vendor: dnsjava.org
-            Bundle-RequiredExecutionEnvironment: J2SE-1.4
+            Bundle-RequiredExecutionEnvironment: J2SE-1.7
             Import-Package: !org.xbill.DNS*,!sun.*,*
         </echo>
         <bndwrap definitions="${dist_dir}"
@@ -115,8 +115,8 @@
     <target name="compile_tests" depends="compile">
         <javac destdir="${tests_build_dir}" debug="true" 
                classpath="${build_dir}:${tests_dir}/junit-3.8.1.jar" 
-               target="1.4" 
-               source="1.4">
+               target="1.7" 
+               source="1.7">
             <src path="${tests_dir}"/>
         </javac>
     </target>
