@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -122,7 +122,7 @@ public class AddressTest extends TestCase
     {
 	byte[] exp = new byte[] { (byte)32, (byte)1, (byte)13, (byte)184,
 				  (byte)133, (byte)163, (byte)8, (byte)211,
-				  (byte)19, (byte)25, (byte)138, (byte)46, 
+				  (byte)19, (byte)25, (byte)138, (byte)46,
 				  (byte)3, (byte)112, (byte)115, (byte)52 };
 	byte[] ret = Address.toByteArray("2001:0db8:85a3:08d3:1319:8a2e:0370:7334", Address.IPv6);
 	assertEquals(exp, ret);
@@ -145,7 +145,7 @@ public class AddressTest extends TestCase
 
 	exp = new byte[] { (byte)32, (byte)1, (byte)13, (byte)184,
 			   (byte)0, (byte)0, (byte)8, (byte)211,
-			   (byte)19, (byte)25, (byte)138, (byte)46, 
+			   (byte)19, (byte)25, (byte)138, (byte)46,
 			   (byte)3, (byte)112, (byte)115, (byte)52 };
 	ret = Address.toByteArray("2001:0db8:0000:08d3:1319:8a2e:0370:7334", Address.IPv6);
 	assertEquals(exp, ret);
@@ -155,7 +155,7 @@ public class AddressTest extends TestCase
 
 	exp = new byte[] { (byte)0, (byte)0, (byte)0, (byte)0,
 			   (byte)133, (byte)163, (byte)8, (byte)211,
-			   (byte)19, (byte)25, (byte)138, (byte)46, 
+			   (byte)19, (byte)25, (byte)138, (byte)46,
 			   (byte)3, (byte)112, (byte)115, (byte)52 };
 	ret = Address.toByteArray("0000:0000:85a3:08d3:1319:8a2e:0370:7334", Address.IPv6);
 	assertEquals(exp, ret);
@@ -164,7 +164,7 @@ public class AddressTest extends TestCase
 
 	exp = new byte[] { (byte)32, (byte)1, (byte)13, (byte)184,
 			   (byte)133, (byte)163, (byte)8, (byte)211,
-			   (byte)19, (byte)25, (byte)138, (byte)46, 
+			   (byte)19, (byte)25, (byte)138, (byte)46,
 			   (byte)0, (byte)0, (byte)0, (byte)0 };
 	ret = Address.toByteArray("2001:0db8:85a3:08d3:1319:8a2e:0:0", Address.IPv6);
 	assertEquals(exp, ret);
@@ -174,7 +174,7 @@ public class AddressTest extends TestCase
 
 	exp = new byte[] { (byte)32, (byte)1, (byte)13, (byte)184,
 			   (byte)0, (byte)0, (byte)0, (byte)0,
-			   (byte)0, (byte)0, (byte)0, (byte)0, 
+			   (byte)0, (byte)0, (byte)0, (byte)0,
 			   (byte)3, (byte)112, (byte)115, (byte)52 };
 	ret = Address.toByteArray("2001:0db8:0000:0000:0000:0000:0370:7334", Address.IPv6);
 	assertEquals(exp, ret);
@@ -187,14 +187,14 @@ public class AddressTest extends TestCase
 
 	exp = new byte[] { (byte)32, (byte)1, (byte)13, (byte)184,
 			   (byte)133, (byte)163, (byte)8, (byte)211,
-			   (byte)19, (byte)25, (byte)138, (byte)46, 
+			   (byte)19, (byte)25, (byte)138, (byte)46,
 			   (byte)0xC0, (byte)0xA8, (byte)0x59, (byte)0x09 };
 	ret = Address.toByteArray("2001:0db8:85a3:08d3:1319:8a2e:192.168.89.9", Address.IPv6);
 	assertEquals(exp, ret);
 
 	exp = new byte[] { (byte)0, (byte)0, (byte)0, (byte)0,
 			   (byte)0, (byte)0, (byte)0, (byte)0,
-			   (byte)0, (byte)0, (byte)0, (byte)0, 
+			   (byte)0, (byte)0, (byte)0, (byte)0,
 			   (byte)0xC0, (byte)0xA8, (byte)0x59, (byte)0x09 };
 	ret = Address.toByteArray("::192.168.89.9", Address.IPv6);
 	assertEquals(exp, ret);
@@ -218,7 +218,7 @@ public class AddressTest extends TestCase
 	assertNull(Address.toByteArray("2001:0ab8:1212:AbAb:8a2e:345.12.22.1", Address.IPv6));
 	// group with too many digits
 	assertNull(Address.toByteArray("2001:0ab8:85a3:128d3:1319:8a2e:0370:9819", Address.IPv6));
-	
+
     }
 
     public void test_toArray()
@@ -278,7 +278,7 @@ public class AddressTest extends TestCase
 
 	out = Address.getByName("serl.cs.colorado.edu");
 	assertEquals("epic.cs.colorado.edu", out.getCanonicalHostName());
-	assertEquals("128.138.201.71", out.getHostAddress());
+	assertEquals("128.138.72.229", out.getHostAddress());
     }
 
     public void test_getByName_invalid() throws UnknownHostException
@@ -306,7 +306,7 @@ public class AddressTest extends TestCase
 	out = Address.getAllByName("serl.cs.colorado.edu");
 	assertEquals(1, out.length);
 	assertEquals("epic.cs.colorado.edu", out[0].getCanonicalHostName());
-	assertEquals("128.138.201.71", out[0].getHostAddress());
+	assertEquals("128.138.72.229", out[0].getHostAddress());
 
 	out = Address.getAllByName("cnn.com");
 	assertTrue(out.length > 1);
