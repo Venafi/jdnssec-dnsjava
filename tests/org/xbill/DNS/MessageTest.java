@@ -34,12 +34,13 @@
 //
 package org.xbill.DNS;
 
-import	java.net.InetAddress;
-import	java.net.UnknownHostException;
-import	java.util.Arrays;
-import	junit.framework.Test;
-import	junit.framework.TestCase;
-import	junit.framework.TestSuite;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class MessageTest
 {

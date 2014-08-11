@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,20 +34,12 @@
 //
 package org.xbill.DNS;
 
-import	java.net.InetAddress;
-import	java.net.UnknownHostException;
-import	java.util.Date;
-import	java.util.Iterator;
-import	junit.framework.TestCase;
-import	org.xbill.DNS.ARecord;
-import	org.xbill.DNS.CNAMERecord;
-import	org.xbill.DNS.DClass;
-import	org.xbill.DNS.Name;
-import	org.xbill.DNS.RRset;
-import	org.xbill.DNS.Record;
-import	org.xbill.DNS.RRSIGRecord;
-import	org.xbill.DNS.TextParseException;
-import	org.xbill.DNS.Type;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+import java.util.Iterator;
+
+import junit.framework.TestCase;
 
 public class RRsetTest extends TestCase
 {
@@ -93,7 +85,7 @@ public class RRsetTest extends TestCase
 	try {m_rs.toString();fail("IllegalStateException not thrown");}
 	catch( IllegalStateException e ){}
 
-	Iterator itr = m_rs.rrs();
+	Iterator<Record> itr = m_rs.rrs();
 	assertNotNull(itr);
 	assertFalse(itr.hasNext());
 
@@ -134,7 +126,7 @@ public class RRsetTest extends TestCase
 	assertEquals(m_ttl, m_rs.getTTL());
 	assertEquals(Type.A, m_rs.getType());
 
-	Iterator itr = m_rs.rrs();
+	Iterator<Record> itr = m_rs.rrs();
 	assertEquals(m_a1, itr.next());
 	assertEquals(m_a2, itr.next());
 
@@ -177,7 +169,7 @@ public class RRsetTest extends TestCase
 	assertEquals(m_s2, itr.next());
 	assertFalse(itr.hasNext());
 
-	
+
 	// clear it all
 	m_rs.clear();
 	assertEquals(0, m_rs.size());
@@ -197,11 +189,11 @@ public class RRsetTest extends TestCase
 
 	assertEquals(2, rs2.size());
 	assertEquals(m_a1, rs2.first());
-	Iterator itr = rs2.rrs();
+	Iterator<Record> itr = rs2.rrs();
 	assertEquals(m_a1, itr.next());
 	assertEquals(m_a2, itr.next());
 	assertFalse(itr.hasNext());
-	
+
 	itr = rs2.sigs();
 	assertTrue(itr.hasNext());
 	assertEquals(m_s1, itr.next());
@@ -218,7 +210,7 @@ public class RRsetTest extends TestCase
 	m_rs.addRR(m_s2);
 
 	String out = m_rs.toString();
-	
+
 	assertTrue(out.indexOf(m_name.toString()) != -1);
 	assertTrue(out.indexOf(" IN A ") != -1);
 	assertTrue(out.indexOf("[192.169.232.11]") != -1);
@@ -228,9 +220,9 @@ public class RRsetTest extends TestCase
     public void test_addRR_invalidType() throws TextParseException
     {
 	m_rs.addRR(m_a1);
-	
+
 	CNAMERecord c = new CNAMERecord(m_name, DClass.IN, m_ttl, Name.fromString("an.alias."));
-	
+
 	try {
 	    m_rs.addRR(c);
 	    fail("IllegalArgumentException not thrown");
@@ -242,10 +234,10 @@ public class RRsetTest extends TestCase
     public void test_addRR_invalidName() throws TextParseException, UnknownHostException
     {
 	m_rs.addRR(m_a1);
-	
+
 	m_a2 = new ARecord(m_name2, DClass.IN, m_ttl,
 			   InetAddress.getByName("192.169.232.11"));
-	
+
 	try {
 	    m_rs.addRR(m_a2);
 	    fail("IllegalArgumentException not thrown");
@@ -257,10 +249,10 @@ public class RRsetTest extends TestCase
     public void test_addRR_invalidDClass() throws TextParseException, UnknownHostException
     {
 	m_rs.addRR(m_a1);
-	
+
 	m_a2 = new ARecord(m_name, DClass.CHAOS, m_ttl,
 			   InetAddress.getByName("192.169.232.11"));
-	
+
 	try {
 	    m_rs.addRR(m_a2);
 	    fail("IllegalArgumentException not thrown");
@@ -276,9 +268,9 @@ public class RRsetTest extends TestCase
 	m_rs.addRR(m_a1);
 	assertEquals(m_a1.getTTL(), m_rs.getTTL());
 
-	Iterator itr = m_rs.rrs();
+	Iterator<Record> itr = m_rs.rrs();
 	while( itr.hasNext() ){
-	    Record r = (Record)itr.next();
+	    Record r = itr.next();
 	    assertEquals( m_a1.getTTL(), r.getTTL());
 	}
     }
@@ -289,7 +281,7 @@ public class RRsetTest extends TestCase
 	m_rs.addRR(m_s1);
 	m_rs.addRR(m_a2);
 
-	Iterator itr = m_rs.rrs();
+	Iterator<Record> itr = m_rs.rrs();
 	assertTrue(itr.hasNext());
 	assertEquals(m_a1, itr.next());
 	assertTrue(itr.hasNext());
@@ -307,7 +299,7 @@ public class RRsetTest extends TestCase
 	m_rs.addRR(m_a1);
 	m_rs.addRR(m_a2);
 
-	Iterator itr = m_rs.rrs(false);
+	Iterator<Record> itr = m_rs.rrs(false);
 	assertTrue(itr.hasNext());
 	assertEquals(m_a1, itr.next());
 	assertTrue(itr.hasNext());

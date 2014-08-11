@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,13 +34,16 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.TestCase;
-import	org.xbill.DNS.utils.base64;
+import java.io.IOException;
+import java.util.Arrays;
+
+import junit.framework.TestCase;
+
+import org.xbill.DNS.utils.base64;
 
 public class KEYBaseTest extends TestCase
 {
+    @SuppressWarnings("serial")
     private static class TestClass extends KEYBase
     {
 	public TestClass(){}
@@ -50,7 +53,7 @@ public class KEYBaseTest extends TestCase
 	{
 	    super(name, type, dclass, ttl, flags, proto, alg, key);
 	}
-	
+
 	public Record getObject()
 	{
 	    return null;
@@ -89,7 +92,7 @@ public class KEYBaseTest extends TestCase
     {
 	byte[] raw = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF, (byte)0x19, 1, 2, 3, 4, 5 };
 	DNSInput in = new DNSInput(raw);
-	
+
 	TestClass tc = new TestClass();
 	tc.rrFromWire(in);
 
@@ -101,7 +104,7 @@ public class KEYBaseTest extends TestCase
 
 	raw = new byte[] { (byte)0xBA, (byte)0xDA, (byte)0xFF, (byte)0x28 };
 	in = new DNSInput(raw);
-	
+
 	tc = new TestClass();
 	tc.rrFromWire(in);
 
@@ -142,7 +145,7 @@ public class KEYBaseTest extends TestCase
 				  0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
 
 	TestClass tc = new TestClass(n, Type.KEY, DClass.IN, 100L, 0xFF, 0xF, DNSSEC.Algorithm.RSAMD5, key);
-	
+
 	int foot = tc.getFootprint();
 	// second-to-last and third-to-last bytes of key for RSAMD5
 	assertEquals(0xD0E, foot);
@@ -170,7 +173,7 @@ public class KEYBaseTest extends TestCase
 				  0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
 
 	TestClass tc = new TestClass(n, Type.KEY, DClass.IN, 100L, 0x7689, 0xAB, 0xCD, key);
-       
+
 	byte[] exp = new byte[] { (byte)0x76, (byte)0x89, (byte)0xAB, (byte)0xCD, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
 	DNSOutput o = new DNSOutput();

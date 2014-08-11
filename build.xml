@@ -1,6 +1,6 @@
 <project name="dnsjava" default="all" basedir=".">
     <property name="build_dir" value="${basedir}/build/classes"/>
-    <property name="src_dir" value="${basedir}"/>
+    <property name="src_dir" value="${basedir}/main"/>
     <property name="doc_dir" value="${basedir}/doc"/>
     <property name="dist_dir" value="${basedir}"/>
     <property name="tests_dir" value="${basedir}/tests"/>
@@ -46,7 +46,7 @@
                 <attribute name="Implementation-Title" value="dnsjava"/>
 		<attribute name="Implementation-Version" value="${version}"/>
             </manifest>
-	    <metainf dir="org/xbill/DNS/spi/">
+	    <metainf dir="main/org/xbill/DNS/spi/">
                 <include name="services/*"/>
             </metainf>
         </jar>

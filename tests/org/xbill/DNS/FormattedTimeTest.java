@@ -34,12 +34,12 @@
 //
 package org.xbill.DNS;
 
-import	java.util.Date;
-import	java.util.Calendar;
-import	java.util.GregorianCalendar;
-import	java.util.TimeZone;
-import	junit.framework.TestCase;
-import	org.xbill.DNS.FormattedTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
+import junit.framework.TestCase;
 
 public class FormattedTimeTest extends TestCase
 {

@@ -34,11 +34,11 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.Test;
-import	junit.framework.TestCase;
-import	junit.framework.TestSuite;
+import java.io.IOException;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class GPOSRecordTest extends TestCase
 {

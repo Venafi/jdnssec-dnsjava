@@ -34,11 +34,10 @@
 //
 package	org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.net.InetAddress;
-import	java.net.UnknownHostException;
-import	java.util.Arrays;
-import	junit.framework.TestCase;
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import junit.framework.TestCase;
 
 public class EmptyRecordTest extends TestCase
 {

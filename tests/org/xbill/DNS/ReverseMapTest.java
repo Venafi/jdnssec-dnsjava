@@ -34,9 +34,10 @@
 //
 package org.xbill.DNS;
 
-import	java.net.InetAddress;
-import	java.net.UnknownHostException;
-import	junit.framework.TestCase;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import junit.framework.TestCase;
 
 public class ReverseMapTest extends TestCase
 {

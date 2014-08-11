@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,13 +34,12 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.Test;
-import	junit.framework.TestCase;
-import	junit.framework.TestSuite;
-import	org.xbill.DNS.Name;
-import	org.xbill.DNS.TextParseException;
+import java.io.IOException;
+import java.util.Arrays;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class NameTest extends TestCase
 {
@@ -56,7 +55,7 @@ public class NameTest extends TestCase
 	    m_abs_origin = Name.fromString("Orig.");
 	    m_rel_origin = Name.fromString("Orig");
 	}
-	    
+
 	public void test_ctor_empty()
 	{
 	    try {
@@ -80,7 +79,7 @@ public class NameTest extends TestCase
 	    Name n = new Name("@", m_abs_origin);
 	    assertEquals(m_abs_origin, n);
 	}
-	    
+
 	public void test_ctor_at_rel_origin() throws TextParseException
 	{
 	    Name n = new Name("@", m_rel_origin);
@@ -313,7 +312,7 @@ public class NameTest extends TestCase
 	    assertEquals(4, n.labels());
 	    assertEquals(255, n.length());
 	}
-	    
+
 	public void test_ctor_max_length_abs() throws TextParseException
 	{
 	    // absolute name with three 63-char labels and a 61-char label
@@ -333,7 +332,7 @@ public class NameTest extends TestCase
 	    assertEquals(6, n.length());
 	    assertTrue(Arrays.equals(new byte[] { 5, 'a', 'b', (byte)123, 'c', 'd' }, n.getLabel(0)));
 	}
-	    
+
 	public void test_ctor_escaped_end() throws TextParseException
 	{
 	    Name n = new Name("abcd\\123");
@@ -352,7 +351,7 @@ public class NameTest extends TestCase
 	    }
 	    catch(TextParseException e){}
 	}
-	    
+
 	public void test_ctor_short_escaped_end() throws TextParseException
 	{
 	    try {
@@ -361,7 +360,7 @@ public class NameTest extends TestCase
 	    }
 	    catch(TextParseException e){}
 	}
-	    
+
 	public void test_ctor_empty_escaped_end() throws TextParseException
 	{
 	    try {
@@ -370,7 +369,7 @@ public class NameTest extends TestCase
 	    }
 	    catch(TextParseException e){}
 	}
-	    
+
 	public void test_ctor_toobig_escaped() throws TextParseException
 	{
 	    try {
@@ -486,7 +485,7 @@ public class NameTest extends TestCase
     {
 	public void test_basic() throws IOException, TextParseException, WireParseException
 	{
-	    
+
 	    final byte[] raw = new byte[]
 		{ 3, 'W', 'w', 'w', 7, 'D', 'n', 's', 'J', 'a', 'v', 'a', 3, 'o', 'r', 'g', 0 };
 	    Name e = Name.fromString("Www.DnsJava.org.");
@@ -503,7 +502,7 @@ public class NameTest extends TestCase
 	    }
 	    catch(WireParseException e ){}
 	}
-	
+
 	public void test_root() throws WireParseException
 	{
 	    final byte[] raw = new byte[] { 0 };
@@ -524,7 +523,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 63, 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 0 };
 	    Name e = Name.fromString("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.");
-	    
+
 	    Name n = new Name(new DNSInput(raw));
 	    assertEquals(e, n);
 	}
@@ -534,7 +533,7 @@ public class NameTest extends TestCase
 	    // absolute name with three 63-char labels and a 61-char label
 	    Name e = new Name("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.");
 	    byte[] raw = new byte[] { 63, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 63, 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 63, 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 61, 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 0 };
-	    
+
 	    Name n = new Name(new DNSInput(raw));
 	    assertEquals(e, n);
 	}
@@ -543,7 +542,7 @@ public class NameTest extends TestCase
 	{
 	    // absolute name with three 63-char labels and a 62-char label
 	    byte[] raw = new byte[] { 63, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 63, 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 63, 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 62, 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 0 };
-	    
+
 	    try {
 		new Name(new DNSInput(raw));
 		fail("WireParseException not thrown");
@@ -574,10 +573,10 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 10, 3, 'a', 'b', 'c', 0, (byte)0xC0, 1 };
 	    Name e = Name.fromString("abc.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(6);
-	    
+
 	    Options.set("verbosecompression");
 	    Name n = new Name(in);
 	    Options.unset("verbosecompression");
@@ -588,10 +587,10 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 10, 3, 'a', 'b', 'c', 0, (byte)0xC0, 1, (byte)0xC0, 6 };
 	    Name e = Name.fromString("abc.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(8);
-	    
+
 	    Name n = new Name(in);
 	    assertEquals(e, n);
 	}
@@ -600,10 +599,10 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 10, 3, 'a', 'b', 'c', 0, 1, 'B', (byte)0xC0, 1 };
 	    Name e = Name.fromString("B.abc.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(6);
-	    
+
 	    Name n = new Name(in);
 	    assertEquals(e, n);
 	}
@@ -613,7 +612,7 @@ public class NameTest extends TestCase
 	    // pointer to name beginning at index 256
 	    byte[] raw = new byte[] { 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 3, 'a', 'b', 'c', 0, (byte)0xC1, 0 };
 	    Name e = Name.fromString("abc.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(261);
 	    Name n = new Name(in);
@@ -635,10 +634,10 @@ public class NameTest extends TestCase
 	    byte[] raw = new byte[] { 10, 3, 'a', 'b', 'c', 0, (byte)0xC0, 1, 3, 'd', 'e', 'f', 0 };
 	    Name e = Name.fromString("abc.");
 	    Name e2 = Name.fromString("def.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(6);
-	    
+
 	    Name n = new Name(in);
 	    assertEquals(e, n);
 
@@ -651,10 +650,10 @@ public class NameTest extends TestCase
 	    byte[] raw = new byte[] { 10, 3, 'a', 'b', 'c', 0, 1, 'B', (byte)0xC0, 1, 3, 'd', 'e', 'f', 0 };
 	    Name e = Name.fromString("B.abc.");
 	    Name e2 = Name.fromString("def.");
-	    
+
 	    DNSInput in = new DNSInput(raw);
 	    in.jump(6);
-	    
+
 	    Name n = new Name(in);
 	    assertEquals(e, n);
 
@@ -694,7 +693,7 @@ public class NameTest extends TestCase
 	Name p = Name.fromString("A.B");
 	Name s = Name.fromString("c.d.");
 	Name e = Name.fromString("A.B.c.d.");
-	
+
 	Name n = Name.concatenate(p, s);
 	assertEquals(e, n);
     }
@@ -704,7 +703,7 @@ public class NameTest extends TestCase
 	Name p = Name.fromString("A.B.");
 	Name s = Name.fromString("c.d.");
 	Name e = Name.fromString("A.B.");
-	
+
 	Name n = Name.concatenate(p, s);
 	assertEquals(e, n);
     }
@@ -828,7 +827,7 @@ public class NameTest extends TestCase
 	Name own = new Name("the.owner.");
 	Name alias = new Name("the.alias.");
 	DNAMERecord dnr = new DNAMERecord(own, DClass.IN, 0xABCD, alias);
-	
+
 	Name sub = new Name("sub.the.other");
 
 	assertNull(sub.fromDNAME(dnr));
@@ -862,7 +861,7 @@ public class NameTest extends TestCase
     {
 	String in = "This.Is.My.Absolute.Name.";
 	Name n = new Name(in);
-	
+
 	assertEquals(in, n.toString());
     }
 
@@ -870,7 +869,7 @@ public class NameTest extends TestCase
     {
 	String in = "This.Is.My.Relative.Name";
 	Name n = new Name(in);
-	
+
 	assertEquals(in, n.toString());
     }
 
@@ -923,7 +922,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 1, 'A', 5, 'B', 'a', 's', 'i', 'c', 4, 'N', 'a', 'm', 'e', 0 };
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    DNSOutput o = new DNSOutput();
 	    n.toWire(o, null);
 
@@ -934,7 +933,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 1, 'A', 5, 'B', 'a', 's', 'i', 'c', 4, 'N', 'a', 'm', 'e', 0 };
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    Compression c = new Compression();
 	    DNSOutput o = new DNSOutput();
 	    n.toWire(o, c);
@@ -946,7 +945,7 @@ public class NameTest extends TestCase
 	public void test_with_exact_Compression() throws TextParseException
 	{
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    Compression c = new Compression();
 	    c.add(256, n);
 	    byte[] exp = new byte[] { (byte)0xC1, 0x0 };
@@ -961,7 +960,7 @@ public class NameTest extends TestCase
 	{
 	    Name d = new Name("Basic.Name.");
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    Compression c = new Compression();
 	    c.add(257, d);
 	    byte[] exp = new byte[] { 1, 'A', (byte)0xC1, 0x1 };
@@ -987,7 +986,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 1, 'A', 5, 'B', 'a', 's', 'i', 'c', 4, 'N', 'a', 'm', 'e', 0 };
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    byte[] out = n.toWire();
 
 	    assertTrue(Arrays.equals(raw, out));
@@ -1003,7 +1002,7 @@ public class NameTest extends TestCase
 	{
 	    Name d = new Name("Basic.Name.");
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    Compression c = new Compression();
 	    c.add(257, d);
 	    byte[] exp = new byte[] { 1, 'A', (byte)0xC1, 0x1 };
@@ -1022,7 +1021,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 1, 'a', 5, 'b', 'a', 's', 'i', 'c', 4, 'n', 'a', 'm', 'e', 0 };
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    DNSOutput o = new DNSOutput();
 	    n.toWireCanonical(o);
 
@@ -1033,7 +1032,7 @@ public class NameTest extends TestCase
 	{
 	    byte[] raw = new byte[] { 1, 'a', 5, 'b', 'a', 's', 'i', 'c', 4, 'n', 'a', 'm', 'e', 0 };
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    byte[] out = n.toWireCanonical();
 
 	    assertTrue(Arrays.equals(raw, out));
@@ -1056,7 +1055,7 @@ public class NameTest extends TestCase
 	{
 	    Name d = new Name("Basic.Name.");
 	    Name n = new Name("A.Basic.Name.");
-	    
+
 	    Compression c = new Compression();
 	    c.add(257, d);
 	    byte[] exp = new byte[] { 1, 'a', 5, 'b', 'a', 's', 'i', 'c', 4, 'n', 'a', 'm', 'e', 0 };
@@ -1128,15 +1127,6 @@ public class NameTest extends TestCase
 
     public static class Test_compareTo extends TestCase
     {
-	public void test_notName() throws TextParseException
-	{
-	    Name n = new Name("A.Name");
-	    try {
-		n.compareTo(new Object());
-		fail("ClassCastException not thrown");
-	    }
-	    catch(ClassCastException e ){}
-	}
 
 	public void test_same() throws TextParseException
 	{
@@ -1166,7 +1156,7 @@ public class NameTest extends TestCase
 	{
 	    Name n1 = new Name("b");
 	    Name n2 = new Name("c");
-	    
+
 	    assertTrue(n1.compareTo(n2) < 0);
 	    assertTrue(n2.compareTo(n1) > 0);
 	}

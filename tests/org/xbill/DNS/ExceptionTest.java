@@ -35,6 +35,7 @@
 package org.xbill.DNS;
 
 import java.io.IOException;
+
 import junit.framework.TestCase;
 
 public class ExceptionTest extends TestCase

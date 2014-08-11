@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,11 +34,12 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.Test;
-import	junit.framework.TestCase;
-import	junit.framework.TestSuite;
+import java.io.IOException;
+import java.util.Arrays;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class DSRecordTest extends TestCase
 {
@@ -54,7 +55,7 @@ public class DSRecordTest extends TestCase
 	assertNull(dr.getDigest());
 	assertEquals(0, dr.getFootprint());
     }
-    
+
     public void test_getObject()
     {
 	DSRecord dr = new DSRecord();
@@ -69,7 +70,7 @@ public class DSRecordTest extends TestCase
 	private int	m_footprint;
 	private int	m_algorithm;
 	private int	m_digestid;
-	private byte[]	m_digest;	
+	private byte[]	m_digest;
 
 	protected void setUp() throws TextParseException
 	{
@@ -80,7 +81,7 @@ public class DSRecordTest extends TestCase
 	    m_digestid = 0x45;
 	    m_digest = new byte[] { (byte)0x67, (byte)0x89, (byte)0xAB, (byte)0xCD, (byte)0xEF };
 	}
-	
+
 	public void test_basic() throws TextParseException
 	{
 	    DSRecord dr = new DSRecord(m_n, DClass.IN, m_ttl,
@@ -172,7 +173,7 @@ public class DSRecordTest extends TestCase
 
     public void test_rrFromWire() throws IOException
     {
-	byte[] raw = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF, 
+	byte[] raw = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF,
 				  (byte)0x01, (byte)0x23, (byte)0x45,
 				  (byte)0x67, (byte)0x89 };
 	DNSInput in = new DNSInput(raw);
@@ -188,9 +189,6 @@ public class DSRecordTest extends TestCase
 
     public void test_rdataFromString() throws IOException
     {
-	byte[] raw = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF, 
-				  (byte)0x01, (byte)0x23, (byte)0x45,
-				  (byte)0x67, (byte)0x89 };
 	Tokenizer t = new Tokenizer(0xABCD + " " + 0xEF + " " + 0x01 + " 23456789AB");
 
 	DSRecord dr = new DSRecord();
@@ -220,7 +218,7 @@ public class DSRecordTest extends TestCase
 				   new byte[] { (byte)0x23, (byte)0x45, (byte)0x67,
 						(byte)0x89, (byte)0xAB });
 
-	byte[] exp = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF, 
+	byte[] exp = new byte[] { (byte)0xAB, (byte)0xCD, (byte)0xEF,
 				  (byte)0x01, (byte)0x23, (byte)0x45,
 				  (byte)0x67, (byte)0x89, (byte)0xAB };
 

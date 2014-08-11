@@ -34,9 +34,10 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.TestCase;
+import java.io.IOException;
+import java.util.Arrays;
+
+import junit.framework.TestCase;
 
 public class HINFORecordTest extends TestCase
 {

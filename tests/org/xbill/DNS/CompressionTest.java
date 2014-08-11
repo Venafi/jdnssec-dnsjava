@@ -34,9 +34,7 @@
 //
 package org.xbill.DNS;
 
-import	junit.framework.TestCase;
-import	org.xbill.DNS.Compression;
-import	org.xbill.DNS.Name;
+import junit.framework.TestCase;
 
 public class CompressionTest extends TestCase
 {

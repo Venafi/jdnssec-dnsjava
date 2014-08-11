@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,17 +34,19 @@
 //
 package org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.util.Arrays;
-import	junit.framework.TestCase;
+import java.io.IOException;
+import java.util.Arrays;
+
+import junit.framework.TestCase;
 
 public class U16NameBaseTest extends TestCase
 {
-    private void assertEquals( byte[] exp, byte[] act )
+    protected void assertEquals( byte[] exp, byte[] act )
     {
 	assertTrue(java.util.Arrays.equals(exp, act));
     }
 
+    @SuppressWarnings("serial")
     private static class TestClass extends U16NameBase
     {
 	public TestClass(){}
@@ -53,13 +55,13 @@ public class U16NameBaseTest extends TestCase
 	{
 	    super(name, type, dclass, ttl);
 	}
-	
+
 	public TestClass(Name name, int type, int dclass, long ttl, int u16Field,
 			 String u16Description, Name nameField, String nameDescription)
 	{
 	    super(name, type, dclass, ttl, u16Field, u16Description, nameField, nameDescription);
 	}
-	
+
 	public int getU16Field()
 	{
 	    return super.getU16Field();
@@ -105,7 +107,7 @@ public class U16NameBaseTest extends TestCase
     {
 	Name n = Name.fromString("My.Name.");
 	Name m = Name.fromString("My.Other.Name.");
-	
+
 	TestClass tc = new TestClass(n, Type.MX, DClass.IN, 0xB12FL,
 				     0x1F2B, "u16 description",
 				     m, "name description");
@@ -135,14 +137,14 @@ public class U16NameBaseTest extends TestCase
 	    fail("RelativeNameException not thrown");
 	}
 	catch( RelativeNameException e ){}
-	
+
     }
 
     public void test_rrFromWire() throws IOException
     {
 	byte[] raw = new byte[] { (byte)0xBC, (byte)0x1F, 2, 'M', 'y', 6, 's', 'i', 'N', 'g', 'l', 'E', 4, 'n', 'A', 'm', 'E', 0 };
 	DNSInput in = new DNSInput(raw);
-	
+
 	TestClass tc = new TestClass();
 	tc.rrFromWire(in);
 
@@ -175,14 +177,14 @@ public class U16NameBaseTest extends TestCase
     {
 	Name n = Name.fromString("My.Name.");
 	Name m = Name.fromString("My.Other.Name.");
-	
+
 	TestClass tc = new TestClass(n, Type.MX, DClass.IN, 0xB12FL,
 				     0x1F2B, "u16 description",
 				     m, "name description");
 
 	String out = tc.rrToString();
 	String exp = 0x1F2B + " My.Other.Name.";
-	
+
 	assertEquals(exp, out);
     }
 
@@ -190,7 +192,7 @@ public class U16NameBaseTest extends TestCase
     {
 	Name n = Name.fromString("My.Name.");
 	Name m = Name.fromString("M.O.n.");
-	
+
 	TestClass tc = new TestClass(n, Type.MX, DClass.IN, 0xB12FL,
 				     0x1F2B, "u16 description",
 				     m, "name description");

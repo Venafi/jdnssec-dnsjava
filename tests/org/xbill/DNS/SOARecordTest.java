@@ -34,13 +34,14 @@
 //
 package	org.xbill.DNS;
 
-import	java.io.IOException;
-import	java.net.UnknownHostException;
-import	java.util.Arrays;
-import	java.util.Random;
-import	junit.framework.Test;
-import	junit.framework.TestCase;
-import	junit.framework.TestSuite;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Random;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class SOARecordTest
 {

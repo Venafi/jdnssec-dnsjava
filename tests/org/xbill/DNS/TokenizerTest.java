@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,12 +34,13 @@
 //
 package org.xbill.DNS;
 
-import	java.io.BufferedInputStream;
-import	java.io.ByteArrayInputStream;
-import	java.io.File;
-import	java.io.FileWriter;
-import	java.io.IOException;
-import	junit.framework.TestCase;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import junit.framework.TestCase;
 
 public class TokenizerTest extends TestCase
 {
@@ -103,7 +104,7 @@ public class TokenizerTest extends TestCase
 
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.WHITESPACE, tt.type);
-	
+
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.IDENTIFIER, tt.type);
 	assertTrue(tt.isString());
@@ -112,7 +113,7 @@ public class TokenizerTest extends TestCase
 
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.WHITESPACE, tt.type);
-	
+
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.EOF, tt.type);
 	assertFalse(tt.isString());
@@ -152,18 +153,18 @@ public class TokenizerTest extends TestCase
 
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.WHITESPACE, tt.type);
-	
+
 	m_t.unget();
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.WHITESPACE, tt.type);
-	
+
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.EOL, tt.type);
-	
+
 	m_t.unget();
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.EOL, tt.type);
-	
+
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.IDENTIFIER, tt.type);
 	assertEquals("identifier2", tt.value);
@@ -179,7 +180,7 @@ public class TokenizerTest extends TestCase
 
 	tt = m_t.get(true, true);
 	assertEquals(Tokenizer.EOF, tt.type);
-	
+
 	m_t = new Tokenizer("identifier ( junk ; comment\n )");
 	tt = m_t.get();
 	assertEquals(Tokenizer.IDENTIFIER, tt.type);
@@ -197,11 +198,11 @@ public class TokenizerTest extends TestCase
 	m_t = new Tokenizer("\"bad");
 	try {m_t.get(); fail("TextParseException not thrown");}
 	catch( TextParseException e ){}
-	
+
 	m_t = new Tokenizer(")");
 	try {m_t.get(); fail("TextParseException not thrown");}
 	catch( TextParseException e ){}
-	
+
 	m_t = new Tokenizer("\\");
 	try {m_t.get(); fail("TextParseException not thrown");}
 	catch( TextParseException e ){}
@@ -214,8 +215,7 @@ public class TokenizerTest extends TestCase
     public void test_File_input() throws IOException
     {
 	File tmp = File.createTempFile("dnsjava", "tmp");
-	try {
-	    FileWriter fw = new FileWriter(tmp);
+	try (FileWriter fw = new FileWriter(tmp)) {
 	    fw.write("file\ninput; test");
 	    fw.close();
 
@@ -283,7 +283,7 @@ public class TokenizerTest extends TestCase
     public void test_multiple_ungets() throws IOException
     {
 	m_t = new Tokenizer("a simple one");
-	Tokenizer.Token tt = m_t.get();
+	m_t.get();
 
 	m_t.unget();
 	try {

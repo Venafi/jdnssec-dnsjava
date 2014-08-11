@@ -2,7 +2,6 @@ package org.xbill.DNS;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.Security;
 import java.security.Signature;
 
 import junit.framework.TestCase;

@@ -34,7 +34,7 @@
 //
 package org.xbill.DNS;
 
-import	junit.framework.TestCase;
+import junit.framework.TestCase;
 
 public class TTLTest extends TestCase
 {

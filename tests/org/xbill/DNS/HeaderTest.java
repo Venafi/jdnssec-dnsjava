@@ -35,13 +35,8 @@
 package org.xbill.DNS;
 
 import java.io.IOException;
+
 import junit.framework.TestCase;
-import org.xbill.DNS.DNSInput;
-import org.xbill.DNS.DNSOutput;
-import org.xbill.DNS.Header;
-import org.xbill.DNS.Opcode;
-import org.xbill.DNS.Rcode;
-import org.xbill.DNS.Flags;
 
 public class HeaderTest extends TestCase
 {

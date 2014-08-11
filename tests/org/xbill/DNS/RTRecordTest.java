@@ -34,8 +34,7 @@
 //
 package	org.xbill.DNS;
 
-import	java.util.Arrays;
-import	junit.framework.TestCase;
+import junit.framework.TestCase;
 
 public class RTRecordTest extends TestCase
 {

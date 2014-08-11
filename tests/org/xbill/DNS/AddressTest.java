@@ -34,10 +34,11 @@
 //
 package org.xbill.DNS;
 
-import	java.net.InetAddress;
-import	java.net.UnknownHostException;
-import	java.util.Arrays;
-import	junit.framework.TestCase;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+import junit.framework.TestCase;
 
 public class AddressTest extends TestCase
 {

@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
 //   notice, this list of conditions and the following disclaimer.
-// 
+//
 // * Redistributions in binary form must reproduce the above copyright
 //   notice, this list of conditions and the following disclaimer in the
 //   documentation and/or other materials provided with the distribution.
-// 
+//
 // * Neither the name of the University of Colorado at Boulder nor the
 //   names of its contributors may be used to endorse or promote
 //   products derived from this software without specific prior written
 //   permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -67,7 +67,7 @@ public class HMACTest extends TestCase
 	tests[1].key =		"Jefe".getBytes();
 	tests[1].data =		"what do ya want for nothing?".getBytes();
 	tests[1].digest =	base16.fromString("750c783e6ab0b503eaa86e310a5db738");
-	
+
 	// test_case =     3
 	tests[2].key =          base16.fromString("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	tests[2].data =		new byte[ 50 ]; // 0xdd repeated 50 times
@@ -83,7 +83,7 @@ public class HMACTest extends TestCase
 	    tests[3].data[i] = (byte)0xcd;
 	}
 	tests[3].digest =       base16.fromString("697eaf0aca3a3aea3a75164746ffaa79");
-	    
+
 	// test_case =     5
 	tests[4].key =		base16.fromString("0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c");
 	tests[4].data =         "Test With Truncation".getBytes();
@@ -116,21 +116,21 @@ public class HMACTest extends TestCase
     {
 	h.update(tests[i].data, 0, tests[i].data.length);
 	byte[] out = h.sign();
-	
+
 	assertEquals("test=" + i, tests[i].digest.length, out.length);
 	for( int j=0; j<out.length; ++j){
 	    assertEquals("test=" + i, tests[i].digest[j], out[j]);
 	}
-	
+
 	// clear and do it again to make sure verify() agrees
 	h.clear();
 	h.update(tests[i].data);
 	assertTrue(h.verify(tests[i].digest));
-	
-	// clear and do it again to make sure verify() 
+
+	// clear and do it again to make sure verify()
 	h.clear();
 	h.update(tests[i].data, 0, tests[i].data.length);
-	byte[] tmp = (byte[])tests[i].digest.clone();
+	byte[] tmp = tests[i].digest.clone();
 	tmp[tmp.length/2] = (byte)0xAB;
 	assertFalse(h.verify(tmp));
     }
@@ -140,7 +140,7 @@ public class HMACTest extends TestCase
     {
 	for( int i=0; i<tests.length; ++i){
 	    MessageDigest md = MessageDigest.getInstance("md5");
-	    HMAC h = new HMAC(md, tests[i].key);
+	    HMAC h = new HMAC(md, 64, tests[i].key);
 	    do_test(i, h);
 	}
     }
@@ -149,7 +149,7 @@ public class HMACTest extends TestCase
 					      CloneNotSupportedException
     {
 	for( int i=0; i<tests.length; ++i){
-	    HMAC h = new HMAC("md5", tests[i].key);
+	    HMAC h = new HMAC("md5", 64, tests[i].key);
 	    do_test(i, h);
 	}
     }
@@ -157,7 +157,7 @@ public class HMACTest extends TestCase
     public void test_ctor_digestName_key_invalid()
     {
 	try {
-	    new HMAC("no name", new byte[ 0 ]);
+	    new HMAC("no name", 64, new byte[ 0 ]);
 	    fail("IllegalArgumentException not thrown");
 	}
 	catch( IllegalArgumentException e ){}
