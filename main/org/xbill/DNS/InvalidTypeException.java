@@ -12,9 +12,8 @@ public class InvalidTypeException extends IllegalArgumentException {
 
   private static final long serialVersionUID = 1L;
 
-public
-InvalidTypeException(int type) {
-	super("Invalid DNS type: " + type);
-}
+  public InvalidTypeException(int type) {
+    super("Invalid DNS type: " + type);
+  }
 
 }

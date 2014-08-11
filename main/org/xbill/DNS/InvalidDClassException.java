@@ -12,9 +12,8 @@ public class InvalidDClassException extends IllegalArgumentException {
 
   private static final long serialVersionUID = 1L;
 
-public
-InvalidDClassException(int dclass) {
-	super("Invalid DNS class: " + dclass);
-}
+  public InvalidDClassException(int dclass) {
+    super("Invalid DNS class: " + dclass);
+  }
 
 }

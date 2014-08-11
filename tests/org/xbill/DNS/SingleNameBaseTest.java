@@ -9,16 +9,16 @@
 // met:
 //
 // * Redistributions of source code must retain the above copyright
-//   notice, this list of conditions and the following disclaimer.
+// notice, this list of conditions and the following disclaimer.
 //
 // * Redistributions in binary form must reproduce the above copyright
-//   notice, this list of conditions and the following disclaimer in the
-//   documentation and/or other materials provided with the distribution.
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
 //
 // * Neither the name of the University of Colorado at Boulder nor the
-//   names of its contributors may be used to endorse or promote
-//   products derived from this software without specific prior written
-//   permission.
+// names of its contributors may be used to endorse or promote
+// products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,130 +38,118 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-public class SingleNameBaseTest extends TestCase
-{
-    private void assertEquals( byte[] exp, byte[] act )
-    {
-	assertTrue(java.util.Arrays.equals(exp, act));
-    }
+public class SingleNameBaseTest extends TestCase {
+  private void assertEquals(byte[] exp, byte[] act) {
+    assertTrue(java.util.Arrays.equals(exp, act));
+  }
 
-    private static class TestClass extends SingleNameBase
-    {
+  private static class TestClass extends SingleNameBase {
     private static final long serialVersionUID = 1L;
 
-    public TestClass(){}
+    public TestClass() {}
 
-	public TestClass(Name name, int type, int dclass, long ttl)
-	{
-	    super(name, type, dclass, ttl);
-	}
-
-	public TestClass(Name name, int type, int dclass, long ttl, Name singleName, String desc )
-	{
-	    super(name, type, dclass, ttl, singleName, desc);
-	}
-
-	public Name getSingleName()
-	{
-	    return super.getSingleName();
-	}
-
-	public Record getObject()
-	{
-	    return null;
-	}
+    public TestClass(Name name, int type, int dclass, long ttl) {
+      super(name, type, dclass, ttl);
     }
 
-    public void test_ctor() throws TextParseException
-    {
-	TestClass tc = new TestClass();
-	assertNull(tc.getSingleName());
-
-	Name n = Name.fromString("my.name.");
-	Name sn = Name.fromString("my.single.name.");
-
-	tc = new TestClass(n, Type.A, DClass.IN, 100L);
-
-	assertSame(n, tc.getName());
-	assertEquals(Type.A, tc.getType());
-	assertEquals(DClass.IN, tc.getDClass());
-	assertEquals(100L, tc.getTTL());
-
-	tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
-
-	assertSame(n, tc.getName());
-	assertEquals(Type.A, tc.getType());
-	assertEquals(DClass.IN, tc.getDClass());
-	assertEquals(100L, tc.getTTL());
-	assertSame(sn, tc.getSingleName());
+    public TestClass(Name name, int type, int dclass, long ttl, Name singleName, String desc) {
+      super(name, type, dclass, ttl, singleName, desc);
     }
 
-    public void test_rrFromWire() throws IOException
-    {
-	byte[] raw = new byte[] { 2, 'm', 'y', 6, 's', 'i', 'n', 'g', 'l', 'e', 4, 'n', 'a', 'm', 'e', 0 };
-	DNSInput in = new DNSInput(raw);
-
-	TestClass tc = new TestClass();
-	tc.rrFromWire(in);
-
-	Name exp = Name.fromString("my.single.name.");
-	assertEquals(exp, tc.getSingleName());
+    public Name getSingleName() {
+      return super.getSingleName();
     }
 
-    public void test_rdataFromString() throws IOException
-    {
-	Name exp = Name.fromString("my.single.name.");
-
-	Tokenizer t = new Tokenizer("my.single.name.");
-	TestClass tc = new TestClass();
-	tc.rdataFromString(t, null);
-	assertEquals(exp, tc.getSingleName());
-
-	t = new Tokenizer("my.relative.name");
-	tc = new TestClass();
-	try {
-	    tc.rdataFromString(t, null);
-	    fail("RelativeNameException not thrown");
-	}
-	catch( RelativeNameException e ){}
+    public Record getObject() {
+      return null;
     }
+  }
 
-    public void test_rrToString() throws IOException, TextParseException
-    {
-	Name exp = Name.fromString("my.single.name.");
+  public void test_ctor() throws TextParseException {
+    TestClass tc = new TestClass();
+    assertNull(tc.getSingleName());
 
-	Tokenizer t = new Tokenizer("my.single.name.");
-	TestClass tc = new TestClass();
-	tc.rdataFromString(t, null);
-	assertEquals(exp, tc.getSingleName());
+    Name n = Name.fromString("my.name.");
+    Name sn = Name.fromString("my.single.name.");
 
-	String out = tc.rrToString();
-	assertEquals(out, exp.toString());
+    tc = new TestClass(n, Type.A, DClass.IN, 100L);
+
+    assertSame(n, tc.getName());
+    assertEquals(Type.A, tc.getType());
+    assertEquals(DClass.IN, tc.getDClass());
+    assertEquals(100L, tc.getTTL());
+
+    tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
+
+    assertSame(n, tc.getName());
+    assertEquals(Type.A, tc.getType());
+    assertEquals(DClass.IN, tc.getDClass());
+    assertEquals(100L, tc.getTTL());
+    assertSame(sn, tc.getSingleName());
+  }
+
+  public void test_rrFromWire() throws IOException {
+    byte[] raw = new byte[] {2, 'm', 'y', 6, 's', 'i', 'n', 'g', 'l', 'e', 4, 'n', 'a', 'm', 'e', 0};
+    DNSInput in = new DNSInput(raw);
+
+    TestClass tc = new TestClass();
+    tc.rrFromWire(in);
+
+    Name exp = Name.fromString("my.single.name.");
+    assertEquals(exp, tc.getSingleName());
+  }
+
+  public void test_rdataFromString() throws IOException {
+    Name exp = Name.fromString("my.single.name.");
+
+    Tokenizer t = new Tokenizer("my.single.name.");
+    TestClass tc = new TestClass();
+    tc.rdataFromString(t, null);
+    assertEquals(exp, tc.getSingleName());
+
+    t = new Tokenizer("my.relative.name");
+    tc = new TestClass();
+    try {
+      tc.rdataFromString(t, null);
+      fail("RelativeNameException not thrown");
+    } catch (RelativeNameException e) {
     }
+  }
 
-    public void test_rrToWire() throws IOException, TextParseException
-    {
-	Name n = Name.fromString("my.name.");
-	Name sn = Name.fromString("My.Single.Name.");
+  public void test_rrToString() throws IOException, TextParseException {
+    Name exp = Name.fromString("my.single.name.");
 
-	// non-canonical (case sensitive)
-	TestClass tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
-	byte[] exp = new byte[] { 2, 'M', 'y', 6, 'S', 'i', 'n', 'g', 'l', 'e', 4, 'N', 'a', 'm', 'e', 0 };
+    Tokenizer t = new Tokenizer("my.single.name.");
+    TestClass tc = new TestClass();
+    tc.rdataFromString(t, null);
+    assertEquals(exp, tc.getSingleName());
 
-	DNSOutput dout = new DNSOutput();
-	tc.rrToWire(dout, null, false);
+    String out = tc.rrToString();
+    assertEquals(out, exp.toString());
+  }
 
-	byte[] out = dout.toByteArray();
-	assertEquals(exp, out);
+  public void test_rrToWire() throws IOException, TextParseException {
+    Name n = Name.fromString("my.name.");
+    Name sn = Name.fromString("My.Single.Name.");
 
-	// canonical (lowercase)
-	tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
-	exp = new byte[] { 2, 'm', 'y', 6, 's', 'i', 'n', 'g', 'l', 'e', 4, 'n', 'a', 'm', 'e', 0 };
+    // non-canonical (case sensitive)
+    TestClass tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
+    byte[] exp = new byte[] {2, 'M', 'y', 6, 'S', 'i', 'n', 'g', 'l', 'e', 4, 'N', 'a', 'm', 'e', 0};
 
-	dout = new DNSOutput();
-	tc.rrToWire(dout, null, true);
+    DNSOutput dout = new DNSOutput();
+    tc.rrToWire(dout, null, false);
 
-	out = dout.toByteArray();
-	assertEquals(exp, out);
-    }
+    byte[] out = dout.toByteArray();
+    assertEquals(exp, out);
+
+    // canonical (lowercase)
+    tc = new TestClass(n, Type.A, DClass.IN, 100L, sn, "The Description");
+    exp = new byte[] {2, 'm', 'y', 6, 's', 'i', 'n', 'g', 'l', 'e', 4, 'n', 'a', 'm', 'e', 0};
+
+    dout = new DNSOutput();
+    tc.rrToWire(dout, null, true);
+
+    out = dout.toByteArray();
+    assertEquals(exp, out);
+  }
 }

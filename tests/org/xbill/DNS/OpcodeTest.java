@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
-//   notice, this list of conditions and the following disclaimer.
-// 
+// notice, this list of conditions and the following disclaimer.
+//
 // * Redistributions in binary form must reproduce the above copyright
-//   notice, this list of conditions and the following disclaimer in the
-//   documentation and/or other materials provided with the distribution.
-// 
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+//
 // * Neither the name of the University of Colorado at Boulder nor the
-//   names of its contributors may be used to endorse or promote
-//   products derived from this software without specific prior written
-//   permission.
-// 
+// names of its contributors may be used to endorse or promote
+// products derived from this software without specific prior written
+// permission.
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,47 +36,42 @@ package org.xbill.DNS;
 
 import junit.framework.TestCase;
 
-public class OpcodeTest extends TestCase
-{
-    public void test_string()
-    {
-	// a regular one
-	assertEquals("IQUERY", Opcode.string(Opcode.IQUERY));
+public class OpcodeTest extends TestCase {
+  public void test_string() {
+    // a regular one
+    assertEquals("IQUERY", Opcode.string(Opcode.IQUERY));
 
-	// one that doesn't exist
-	assertTrue(Opcode.string(6).startsWith("RESERVED"));
+    // one that doesn't exist
+    assertTrue(Opcode.string(6).startsWith("RESERVED"));
 
-	try {
-	    Opcode.string(-1);
-	    fail("IllegalArgumentException not thrown");
-	}
-	catch( IllegalArgumentException e ){
-	}
-	
-	//  (max is 0xF)
-	try {
-	    Opcode.string(0x10);
-	    fail("IllegalArgumentException not thrown");
-	}
-	catch( IllegalArgumentException e ){
-	}
+    try {
+      Opcode.string(-1);
+      fail("IllegalArgumentException not thrown");
+    } catch (IllegalArgumentException e) {
     }
 
-    public void test_value()
-    {
-	// regular one
-	assertEquals(Opcode.STATUS, Opcode.value("STATUS"));
-
-	// one thats undefined but within range
-	assertEquals(6, Opcode.value("RESERVED6"));
-
-	// one thats undefined but out of range
-	assertEquals(-1, Opcode.value("RESERVED" + 0x10));
-
-	// something that unknown
-	assertEquals(-1, Opcode.value("THIS IS DEFINITELY UNKNOWN"));
-
-	// empty string
-	assertEquals(-1, Opcode.value(""));
+    // (max is 0xF)
+    try {
+      Opcode.string(0x10);
+      fail("IllegalArgumentException not thrown");
+    } catch (IllegalArgumentException e) {
     }
+  }
+
+  public void test_value() {
+    // regular one
+    assertEquals(Opcode.STATUS, Opcode.value("STATUS"));
+
+    // one thats undefined but within range
+    assertEquals(6, Opcode.value("RESERVED6"));
+
+    // one thats undefined but out of range
+    assertEquals(-1, Opcode.value("RESERVED" + 0x10));
+
+    // something that unknown
+    assertEquals(-1, Opcode.value("THIS IS DEFINITELY UNKNOWN"));
+
+    // empty string
+    assertEquals(-1, Opcode.value(""));
+  }
 }

@@ -12,16 +12,14 @@ import java.io.IOException;
 
 public class TextParseException extends IOException {
 
-private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-public
-TextParseException() {
-	super();
-}
+  public TextParseException() {
+    super();
+  }
 
-public
-TextParseException(String s) {
-	super(s);
-}
+  public TextParseException(String s) {
+    super(s);
+  }
 
 }

@@ -3,24 +3,22 @@
 package org.xbill.DNS;
 
 /**
- * An exception thrown when a relative name is passed as an argument to
- * a method requiring an absolute name.
+ * An exception thrown when a relative name is passed as an argument to a method requiring an
+ * absolute name.
  *
  * @author Brian Wellington
  */
 
 public class RelativeNameException extends IllegalArgumentException {
 
-private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-public
-RelativeNameException(Name name) {
-	super("'" + name + "' is not an absolute name");
-}
+  public RelativeNameException(Name name) {
+    super("'" + name + "' is not an absolute name");
+  }
 
-public
-RelativeNameException(String s) {
-	super(s);
-}
+  public RelativeNameException(String s) {
+    super(s);
+  }
 
 }

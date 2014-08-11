@@ -12,9 +12,8 @@ public class InvalidTTLException extends IllegalArgumentException {
 
   private static final long serialVersionUID = 1L;
 
-public
-InvalidTTLException(long ttl) {
-	super("Invalid DNS TTL: " + ttl);
-}
+  public InvalidTTLException(long ttl) {
+    super("Invalid DNS TTL: " + ttl);
+  }
 
 }

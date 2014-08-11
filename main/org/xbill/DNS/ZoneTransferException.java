@@ -10,16 +10,14 @@ package org.xbill.DNS;
 
 public class ZoneTransferException extends Exception {
 
-private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-public
-ZoneTransferException() {
-	super();
-}
+  public ZoneTransferException() {
+    super();
+  }
 
-public
-ZoneTransferException(String s) {
-	super(s);
-}
+  public ZoneTransferException(String s) {
+    super(s);
+  }
 
 }

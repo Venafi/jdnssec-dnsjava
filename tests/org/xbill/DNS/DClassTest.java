@@ -3,23 +3,23 @@
 // Copyright (c) 2005, Matthew J. Rutherford <rutherfo@cs.colorado.edu>
 // Copyright (c) 2005, University of Colorado at Boulder
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 // * Redistributions of source code must retain the above copyright
-//   notice, this list of conditions and the following disclaimer.
-// 
+// notice, this list of conditions and the following disclaimer.
+//
 // * Redistributions in binary form must reproduce the above copyright
-//   notice, this list of conditions and the following disclaimer in the
-//   documentation and/or other materials provided with the distribution.
-// 
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+//
 // * Neither the name of the University of Colorado at Boulder nor the
-//   names of its contributors may be used to endorse or promote
-//   products derived from this software without specific prior written
-//   permission.
-// 
+// names of its contributors may be used to endorse or promote
+// products derived from this software without specific prior written
+// permission.
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,51 +36,46 @@ package org.xbill.DNS;
 
 import junit.framework.TestCase;
 
-public class DClassTest extends TestCase
-{
-    public void test_string()
-    {
-	// a regular one
-	assertEquals("IN", DClass.string(DClass.IN));
+public class DClassTest extends TestCase {
+  public void test_string() {
+    // a regular one
+    assertEquals("IN", DClass.string(DClass.IN));
 
-	// one with an alias
-	assertEquals("CH", DClass.string(DClass.CH));
+    // one with an alias
+    assertEquals("CH", DClass.string(DClass.CH));
 
-	// one that doesn't exist
-	assertTrue(DClass.string(20).startsWith("CLASS"));
+    // one that doesn't exist
+    assertTrue(DClass.string(20).startsWith("CLASS"));
 
-	try {
-	    DClass.string(-1);
-	    fail("IllegalArgumentException not thrown");
-	}
-	catch( IllegalArgumentException e ){
-	}
-	
-	//  (max is 0xFFFF)
-	try {
-	    DClass.string(0x10000);
-	    fail("IllegalArgumentException not thrown");
-	}
-	catch( IllegalArgumentException e ){
-	}
+    try {
+      DClass.string(-1);
+      fail("IllegalArgumentException not thrown");
+    } catch (IllegalArgumentException e) {
     }
 
-    public void test_value()
-    {
-	// regular one
-	assertEquals(DClass.NONE, DClass.value("NONE"));
-
-	// one with alias
-	assertEquals(DClass.HS, DClass.value("HS"));
-	assertEquals(DClass.HS, DClass.value("HESIOD"));
-
-	// one thats undefined but within range
-	assertEquals(21, DClass.value("CLASS21"));
-
-	// something that unknown
-	assertEquals(-1, DClass.value("THIS IS DEFINITELY UNKNOWN"));
-
-	// empty string
-	assertEquals(-1, DClass.value(""));
+    // (max is 0xFFFF)
+    try {
+      DClass.string(0x10000);
+      fail("IllegalArgumentException not thrown");
+    } catch (IllegalArgumentException e) {
     }
+  }
+
+  public void test_value() {
+    // regular one
+    assertEquals(DClass.NONE, DClass.value("NONE"));
+
+    // one with alias
+    assertEquals(DClass.HS, DClass.value("HS"));
+    assertEquals(DClass.HS, DClass.value("HESIOD"));
+
+    // one thats undefined but within range
+    assertEquals(21, DClass.value("CLASS21"));
+
+    // something that unknown
+    assertEquals(-1, DClass.value("THIS IS DEFINITELY UNKNOWN"));
+
+    // empty string
+    assertEquals(-1, DClass.value(""));
+  }
 }

@@ -13,70 +13,63 @@ import java.net.InetAddress;
 
 public class AAAARecord extends Record {
 
-private static final long serialVersionUID = -4588601512069748050L;
+  private static final long serialVersionUID = -4588601512069748050L;
 
-private InetAddress address;
+  private InetAddress address;
 
-AAAARecord() {}
+  AAAARecord() {}
 
-Record
-getObject() {
-	return new AAAARecord();
-}
+  Record getObject() {
+    return new AAAARecord();
+  }
 
-/**
- * Creates an AAAA Record from the given data
- * @param address The address suffix
- */
-public
-AAAARecord(Name name, int dclass, long ttl, InetAddress address) {
-	super(name, Type.AAAA, dclass, ttl);
-	if (Address.familyOf(address) != Address.IPv6)
-		throw new IllegalArgumentException("invalid IPv6 address");
-	this.address = address;
-}
+  /**
+   * Creates an AAAA Record from the given data
+   * 
+   * @param address The address suffix
+   */
+  public AAAARecord(Name name, int dclass, long ttl, InetAddress address) {
+    super(name, Type.AAAA, dclass, ttl);
+    if (Address.familyOf(address) != Address.IPv6)
+      throw new IllegalArgumentException("invalid IPv6 address");
+    this.address = address;
+  }
 
-void
-rrFromWire(DNSInput in) throws IOException {
-	if (name == null)
-		address = InetAddress.getByAddress(in.readByteArray(16));
-	else
-		address = InetAddress.getByAddress(name.toString(),
-						   in.readByteArray(16));
-}
+  void rrFromWire(DNSInput in) throws IOException {
+    if (name == null)
+      address = InetAddress.getByAddress(in.readByteArray(16));
+    else
+      address = InetAddress.getByAddress(name.toString(), in.readByteArray(16));
+  }
 
-void
-rdataFromString(Tokenizer st, Name origin) throws IOException {
-	address = st.getAddress(Address.IPv6);
-}
+  void rdataFromString(Tokenizer st, Name origin) throws IOException {
+    address = st.getAddress(Address.IPv6);
+  }
 
-/** Converts rdata to a String */
-String
-rrToString() {
-	if(address.getAddress().length == 4) {
-		return "::FFFF:" + address.getHostAddress();
-	}
-	return address.getHostAddress();
-}
+  /** Converts rdata to a String */
+  String rrToString() {
+    if (address.getAddress().length == 4) {
+      return "::FFFF:" + address.getHostAddress();
+    }
+    return address.getHostAddress();
+  }
 
-/** Returns the address */
-public InetAddress
-getAddress() {
-	return address;
-}
+  /** Returns the address */
+  public InetAddress getAddress() {
+    return address;
+  }
 
-void
-rrToWire(DNSOutput out, Compression c, boolean canonical) {
-	byte[] thisAddressBytes = address.getAddress();
-	if(thisAddressBytes.length == 4) {
-		byte[] templateIPV6 = new byte[16];
-		templateIPV6[10] = (byte)0xFF;
-		templateIPV6[11] = (byte)0xFF;
-		System.arraycopy(thisAddressBytes, 0, templateIPV6, 12, 4);
-		out.writeByteArray(templateIPV6);
-	} else {
-		out.writeByteArray(thisAddressBytes);
-	}
-}
+  void rrToWire(DNSOutput out, Compression c, boolean canonical) {
+    byte[] thisAddressBytes = address.getAddress();
+    if (thisAddressBytes.length == 4) {
+      byte[] templateIPV6 = new byte[16];
+      templateIPV6[10] = (byte) 0xFF;
+      templateIPV6[11] = (byte) 0xFF;
+      System.arraycopy(thisAddressBytes, 0, templateIPV6, 12, 4);
+      out.writeByteArray(templateIPV6);
+    } else {
+      out.writeByteArray(thisAddressBytes);
+    }
+  }
 
 }
